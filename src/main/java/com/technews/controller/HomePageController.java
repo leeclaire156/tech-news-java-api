@@ -23,12 +23,22 @@ public class HomePageController {
     CommentRepository commentRepository;
 
     @GetMapping("/login")
-    public String login(Model model, HttpServletRequest request){
-        if (request.getSession(false) != null){
+    public String login(Model model, HttpServletRequest request) {
+
+        if (request.getSession(false) != null) {
             return "redirect:/";
         }
 
         model.addAttribute("user", new User());
         return "login";
     }
+
+    @GetMapping("/users/logout")
+    public String logout(HttpServletRequest request) {
+        if (request.getSession(false) != null) {
+            request.getSession().invalidate();
+        }
+        return "redirect:/login";
+    }
+
 }
